@@ -25,8 +25,8 @@ public class FastFoodController {
     @PostMapping
     public ResponseEntity<?> registrarPedido(@RequestBody PedidoRequest request) {
         // Validación DTO
-        if (request.getNombreCliente() == null || request.getNombreCliente().trim().isEmpty() ||
-            request.getDescripcion() == null || request.getDescripcion().trim().isEmpty() ||
+        if (request.getNombreCliente() == null || request.getNombreCliente().isEmpty() ||
+            request.getDescripcion() == null || request.getDescripcion().isEmpty() ||
             request.getMonto() <= 0) {
             
             Map<String, String> error = new HashMap<>();

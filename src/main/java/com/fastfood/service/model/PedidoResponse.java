@@ -1,5 +1,8 @@
 package com.fastfood.service.model;
 
+import lombok.Data;
+
+@Data
 public class PedidoResponse {
 
     private int id;

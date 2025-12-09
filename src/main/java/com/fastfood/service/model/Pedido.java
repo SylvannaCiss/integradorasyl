@@ -7,11 +7,8 @@ public class Pedido {
     private double monto;
     private String estado; /* REGISTRADO, EN_PREPARACION, DESPACHADO, CANCELADO */
 
-    private static int nextId = 1;
 
-    public Pedido(){ //constructor vacio
-
-    }
+    public Pedido(){}
 
     public Pedido(int id, String nombreCliente, String descripcion, double monto, String estado) { //pedidos registrados
         this.id = id;
@@ -21,27 +18,14 @@ public class Pedido {
         this.estado = estado;
     }
 
-    public Pedido(String nombreCliente, String descripcion, double monto) {
-        this.id = nextId++;
-        this.nombreCliente = nombreCliente;
-        this.descripcion = descripcion;
-        this.monto = monto;
-        this.estado = "REGISTRADO"; // Estado por defecto
-    }
+    public Pedido copiaPedido() {
+        return new Pedido(id, nombreCliente, descripcion, monto, estado);
 
-    
-
-    public Pedido(Pedido otro) { //Constructor que clona
-        this.id = otro.id;
-        this.nombreCliente = otro.nombreCliente;
-        this.descripcion = otro.descripcion;
-        this.monto = otro.monto;
-        this.estado = otro.estado;
     }
 
     //Getters y Setters
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public Integer getId() { return id; }
+    public void setId(Integer id) { this.id = id; }
 
     public String getNombreCliente() { return nombreCliente; }
     public void setNombreCliente(String nombreCliente) { this.nombreCliente = nombreCliente; }

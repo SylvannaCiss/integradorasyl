@@ -1,7 +1,7 @@
 package com.fastfood.service.model;
 
+
 public class PedidoRequest {
-    
     private String nombreCliente;
     private String descripcion;
     private double monto; 
