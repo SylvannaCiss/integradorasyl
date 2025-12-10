@@ -3,23 +3,27 @@ package com.fastfood.service.datastructures;
 import com.fastfood.service.model.HistorialOperacion;
 
 
-class StackNode {
-    
-    HistorialOperacion data;
-    StackNode next;
-
-    public StackNode(HistorialOperacion data) {
-        this.data = data;
-        this.next = null;
-    }
-}
-
 public class Stack {
-    private StackNode top;
+    
+    private HistorialOperacion[] data; 
+    private int top;
 
-    // Operación: Push (Agregar al tope)
+    public Stack(int capacity) {
+        data = new HistorialOperacion[capacity];
+        top = -1;
+    }
+
+    public boolean isEmpty() {
+        return top == 0;
+    }
+
+    pub
+
+
+
+    
     public void push(HistorialOperacion op) {
-        StackNode newNode = new StackNode(op);
+        Node newNode = new Node(op);
         newNode.next = top;
         top = newNode;
     }
@@ -34,8 +38,6 @@ public class Stack {
         return op;
     }
 
-    // Operación: isEmpty
-    public boolean isEmpty() {
-        return top == null;
-    }
+    
+   
 }
