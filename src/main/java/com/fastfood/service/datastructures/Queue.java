@@ -1,81 +1,82 @@
 package com.fastfood.service.datastructures;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.fastfood.service.model.Pedido;
 
-public class Queue {
-    private Node front;
-    private Node rear;
+public class Queue { 
+    private Pedido[] data;
+    private int front;
+    private int rear;
+    private int size;
 
-    private static class Node {
-        Pedido data; 
-        Node next; 
-        Node(Pedido data){
-            this.data = data;
-        }
+    public Queue() {
+        this(10);
     }
 
-    // Operación: Enqueue (Agregar al final)
-    public void enqueue(Pedido pedido) {
-        Node nuevoNodo = new Node(pedido);
-        if (rear == null) {
-            front = nuevoNodo;
-            rear = nuevoNodo;
-        } else {
-            rear.next = nuevoNodo;
-            rear = nuevoNodo;
-        }
+    public Queue(int size) {
+        this.data = new Pedido[size];
+        this.front = 0;
+        this.rear = 0;
+        this.size = 0;
     }
 
-    // Operación: Dequeue (Sacar del frente)
+    public void enqueue(Pedido element) {
+        this.data[rear] = element;
+        this.rear = (rear + 1) % data.length;
+        size++;
+    }
+
     public Pedido dequeue() {
-        if (isEmpty()) {
+        if(isEmpty()) {
+            System.out.println("La cola está vacía");
             return null;
         }
-        Pedido pedido = front.data;
-        front = front.next;
-        if (front == null) {
-            rear = null;
-        }
-        return pedido;
+        Pedido result = (Pedido) data[front];
+        data[front] = null;
+        front = (front + 1) % data.length;
+        size--;
+        return result;
     }
 
-    // Operación: RemoveById (Necesario para CANCELAR y Rollback)
-    public boolean removeById(int id) {
-        if (front == null) return false;
+    public void removeById(int id) {
+        int current = front;
 
-        if (front.data.getId() == id) {
-            front = front.next;
-            if (front == null) rear = null;
-            return true;
-        }
+        Pedido[] newData = new Pedido[data.length];
+        int newRear = 0;
+        int newSize = 0;
 
-        Node current = front;
-        while (current.next != null) {
-            if (current.next.data.getId() == id) {
-                current.next = current.next.next;
-                if (current.next == null) rear = current; 
-                return true;
+        for(int i = 0; i < size; i++){
+            Pedido p = data[current];
+            if(p.getId() != id){
+                newData[newRear] = p;
+                newRear = (newRear + 1) % newData.length;
+                newSize++;
             }
-            current = current.next;
+            current = (current + 1) % data.length;
         }
-        return false;
+
+        this.data = newData;
+        this.front = 0;
+        this.rear = newRear;
+        this.size = newSize;
     }
 
-    // Operación: isEmpty
     public boolean isEmpty() {
-        return front == null;
+        return size == 0;
     }
 
-    public List<Pedido> getAll(){
-        List<Pedido> lista = new ArrayList<>();
-        Node aux = front;
-        while(aux != null){
-            lista.add(aux.data);
-            aux = aux.next;
+    public Pedido peek() {
+        if(isEmpty()) {
+            System.out.println("La cola está vacía");
+            return null;
         }
-        return lista; 
-        
+        return (Pedido) data[front];
     }
+
+    public int getSize() {
+        return size;
+    } 
+
+    
+        
+    
 }
